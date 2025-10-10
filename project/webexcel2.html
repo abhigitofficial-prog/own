@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panda Web Excel</title>
+<style>
+    body, html { margin: 0; padding: 0; height: 100%; font-family: Arial, sans-serif; }
+    .toolbar { padding: 10px; background: #d2fc97; border-bottom: 1px solid #ccc; }
+    button { margin-right: 10px; padding: 5px 10px; cursor: pointer; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; min-width: 80px; height: 25px; text-align: center; position: relative; }
+    input { width: 100%; height: 100%; border: none; text-align: center; background: transparent; }
+    input:focus { outline: none; background: #eef; }
+    .col-resizer, .row-resizer {
+        position: absolute;
+        background: transparent;
+        z-index: 5;
+    }
+    .col-resizer {
+        top: 0; right: 0;
+        width: 5px;
+        height: 100%;
+        cursor: col-resize;
+    }
+    .row-resizer {
+        bottom: 0; left: 0;
+        height: 5px;
+        width: 100%;
+        cursor: row-resize;
+    }
+</style>
+</head>
+<body>
+<img src="panda.png" alt="Panda" style="display:block; margin:auto; width:150px;"/>
+<div class="toolbar">
+    <button onclick="addRow()">Add Row</button>
+    <button onclick="addColumn()">Add Column</button>
+    <button onclick="toggleBold()">Bold</button>
+    <button onclick="toggleUnderline()">Underline</button>
+    <button onclick="saveData()">Save</button>
+    <button onclick="loadData()">Load</button>
+    <button onclick="clearData()">Clear</button>
+</div>
+
+<table id="grid"></table>
+
+<script>
+let rows = 20, cols = 10, data = [];
+let resizing = null;
+let selectedCell = null;
+
+function createGrid() {
+    const grid = document.getElementById("grid");
+    grid.innerHTML = "";
+
+    const header = grid.insertRow();
+    header.insertCell().outerHTML = "<th></th>";
+    for (let c = 0; c < cols; c++) {
+        const th = document.createElement("th");
+        th.textContent = String.fromCharCode(65 + c);
+
+        const resizer = document.createElement("div");
+        resizer.className = "col-resizer";
+        resizer.addEventListener("mousedown", e => startResize(e, "col", c, th));
+        th.appendChild(resizer);
+
+        header.appendChild(th);
+    }
+
+    for (let r = 0; r < rows; r++) {
+        const row = grid.insertRow();
+        const rowHeader = document.createElement("th");
+        rowHeader.textContent = r + 1;
+
+        const rowResizer = document.createElement("div");
+        rowResizer.className = "row-resizer";
+        rowResizer.addEventListener("mousedown", e => startResize(e, "row", r, row));
+        rowHeader.appendChild(rowResizer);
+
+        row.appendChild(rowHeader);
+
+        for (let c = 0; c < cols; c++) {
+            const cell = row.insertCell();
+            const input = document.createElement("input");
+            let cellData = data[r]?.[c] || { text: "", bold: false, underline: false };
+            input.value = cellData.text;
+            input.style.fontWeight = cellData.bold ? "bold" : "normal";
+            input.style.textDecoration = cellData.underline ? "underline" : "none";
+
+            input.addEventListener("focus", () => selectedCell = { row: r, col: c, input });
+            input.addEventListener("input", () => {
+                data[r] = data[r] || [];
+                data[r][c] = {
+                    ...cellData,
+                    text: input.value
+                };
+            });
+            cell.appendChild(input);
+        }
+    }
+}
+
+function addRow() {
+    rows++;
+    data.push(new Array(cols).fill({ text: "", bold: false, underline: false }));
+    createGrid();
+}
+
+function addColumn() {
+    cols++;
+    for (let r = 0; r < rows; r++) {
+        data[r] = data[r] || [];
+        data[r].push({ text: "", bold: false, underline: false });
+    }
+    createGrid();
+}
+
+function toggleBold() {
+    if (!selectedCell) return;
+    const { row, col, input } = selectedCell;
+    data[row][col].bold = !data[row][col].bold;
+    input.style.fontWeight = data[row][col].bold ? "bold" : "normal";
+}
+
+function toggleUnderline() {
+    if (!selectedCell) return;
+    const { row, col, input } = selectedCell;
+    data[row][col].underline = !data[row][col].underline;
+    input.style.textDecoration = data[row][col].underline ? "underline" : "none";
+}
+
+function saveData() {
+    const savedData = { rows, cols, data };
+    localStorage.setItem("webExcelData", JSON.stringify(savedData));
+    alert("Data saved!");
+}
+
+function loadData() {
+    const saved = localStorage.getItem("webExcelData");
+    if (saved) {
+        const parsed = JSON.parse(saved);
+        rows = parsed.rows;
+        cols = parsed.cols;
+        data = parsed.data;
+        createGrid();
+        alert("Data loaded!");
+    } else {
+        alert("No saved data found.");
+    }
+}
+
+function clearData() {
+    if (confirm("Are you sure you want to clear the sheet?")) {
+        localStorage.removeItem("webExcelData");
+        rows = 20;
+        cols = 10;
+        data = [];
+        createGrid();
+    }
+}
+
+function startResize(e, type, index, element) {
+    resizing = { type, index, element, startX: e.pageX, startY: e.pageY, startWidth: element.offsetWidth, startHeight: element.offsetHeight };
+    document.addEventListener("mousemove", doResize);
+    document.addEventListener("mouseup", stopResize);
+}
+
+function doResize(e) {
+    if (!resizing) return;
+    if (resizing.type === "col") {
+        const newWidth = resizing.startWidth + (e.pageX - resizing.startX);
+        resizing.element.style.width = newWidth + "px";
+    } else if (resizing.type === "row") {
+        const newHeight = resizing.startHeight + (e.pageY - resizing.startY);
+        resizing.element.style.height = newHeight + "px";
+    }
+}
+
+function stopResize() {
+    document.removeEventListener("mousemove", doResize);
+    document.removeEventListener("mouseup", stopResize);
+    resizing = null;
+}
+
+createGrid();
+</script>
+
+</body>
+</html>

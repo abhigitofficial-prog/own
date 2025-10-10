@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExpenseGuard – Cyber Tracker</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      text-shadow: 0 0 10px #0f0;
+      margin-top: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    .form-area, .chart-area {
+      flex: 1 1 300px;
+      min-width: 300px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      background: #111;
+      border: 1px solid #0f0;
+      color: #0f0;
+      font-size: 16px;
+    }
+
+    .entry {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #0f0;
+      padding: 5px;
+    }
+
+    .entry.income {
+      color: #00ff00;
+    }
+
+    .entry.expense {
+      color: #ff4444;
+    }
+
+    .balance {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 20px;
+      text-shadow: 0 0 10px #0f0;
+    }
+
+    canvas {
+      background: #111;
+      border: 1px solid #0f0;
+      margin-top: 20px;
+      max-width: 100%;
+    }
+
+    button:hover {
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>⚡ ExpenseGuard ⚡</h1>
+  <div class="container">
+    <div class="form-area">
+      <input id="amount" type="number" placeholder="Amount">
+      <input id="note" type="text" placeholder="Note (e.g. Rent, Food)">
+      <select id="type">
+        <option value="income">+ Income</option>
+        <option value="expense">- Expense</option>
+      </select>
+      <button onclick="addEntry()">➕ Add Entry</button>
+      <button onclick="clearEntries()">🧹 Clear All</button>
+      <button onclick="downloadPDF()">📄 Export to PDF</button>
+
+      <div class="balance" id="balance">💰 Balance: $0.00</div>
+      <div id="entryList"></div>
+    </div>
+
+    <div class="chart-area">
+      <canvas id="chart" height="300"></canvas>
+    </div>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    let entries = JSON.parse(localStorage.getItem('entries')) || [];
+    const amountEl = document.getElementById("amount");
+    const noteEl = document.getElementById("note");
+    const typeEl = document.getElementById("type");
+    const entryList = document.getElementById("entryList");
+    const balanceEl = document.getElementById("balance");
+    const chartCanvas = document.getElementById("chart");
+    let chart;
+
+    function addEntry() {
+      const amount = parseFloat(amountEl.value);
+      const note = noteEl.value;
+      const type = typeEl.value;
+      if (!amount || !note) return alert("Please fill all fields.");
+
+      const entry = {
+        amount,
+        note,
+        type,
+        date: new Date().toLocaleDateString()
+      };
+      entries.push(entry);
+      localStorage.setItem("entries", JSON.stringify(entries));
+      amountEl.value = "";
+      noteEl.value = "";
+      render();
+    }
+
+    function clearEntries() {
+      if (confirm("Are you sure you want to clear all entries?")) {
+        entries = [];
+        localStorage.removeItem("entries");
+        render();
+      }
+    }
+
+    function render() {
+      entryList.innerHTML = "";
+      let income = 0, expense = 0;
+
+      entries.forEach(e => {
+        const div = document.createElement("div");
+        div.className = "entry " + e.type;
+        div.innerHTML = `<span>${e.date} | ${e.note}</span><span>${e.type === 'income' ? '+' : '-'}$${e.amount.toFixed(2)}</span>`;
+        entryList.appendChild(div);
+
+        if (e.type === 'income') income += e.amount;
+        else expense += e.amount;
+      });
+
+      const balance = income - expense;
+      balanceEl.innerText = `💰 Balance: $${balance.toFixed(2)}`;
+      drawChart(income, expense);
+    }
+
+    function drawChart(income, expense) {
+      if (chart) chart.destroy();
+
+      let remaining = income - expense;
+      let remainingColor = '#0f0';
+      let expenseColor = '#f00';
+
+      if (expense > income) {
+        expenseColor = '#f00';
+        remaining = 0;
+      } else if (remaining < income * 0.10) {
+        remainingColor = '#00f';
+      }
+
+      chart = new Chart(chartCanvas.getContext('2d'), {
+        type: 'pie',
+        data: {
+          labels: ['Remaining', 'Expense'],
+          datasets: [{
+            data: [remaining, expense],
+            backgroundColor: [remainingColor, expenseColor],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: { color: '#0f0' }
+            }
+          }
+        }
+      });
+    }
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+
+      pdf.setTextColor(0, 255, 0);
+      pdf.setFont("Courier", "normal");
+      pdf.setFontSize(16);
+      pdf.text("ExpenseGuard Report", 20, 20);
+
+      let y = 40;
+      entries.forEach((e, i) => {
+        pdf.text(`${e.date} | ${e.note} | ${e.type === 'income' ? '+' : '-'}$${e.amount.toFixed(2)}`, 20, y);
+        y += 10;
+      });
+
+      pdf.save("expenseguard_report.pdf");
+    }
+
+    render();
+  </script>
+</body>
+</html>

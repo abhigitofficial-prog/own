@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Survive v3</title>
+  <link rel="icon" type="image/png" href="panda.png">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      cursor: crosshair;
+    }
+
+    .attacker {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      pointer-events: none;
+    }
+
+
+
+    .bullet {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: cyan;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .dead {
+      position: fixed;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 50px;
+      color: red;
+      background: black;
+      padding: 30px;
+      border: 5px solid red;
+      z-index: 999;
+      font-family: 'Courier New', monospace;
+      display: none;
+      text-align: center;
+    }
+
+    .restart-btn {
+      margin-top: 20px;
+      font-size: 24px;
+      padding: 10px 30px;
+      background: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .timer {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgb(255, 0, 0);
+      font-size: 30px;
+      font-family: monospace;
+      z-index: 998;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="timer" id="timer">⏱️ Survived: 0.0s</div>
+
+  <!-- Dragons -->
+  <img src="demon.png" class="attacker" id="a1">
+  <img src="demon.png" class="attacker" id="a2">
+  <img src="demon.png" class="attacker" id="a3">
+  <img src="demon.png" class="attacker" id="a4">
+  <img src="demon.png" class="attacker" id="a5">
+  <img src="demon.png" class="attacker" id="a6">
+
+  <!-- Dead Message -->
+  <div id="deadMsg" class="dead">
+    💀 YOU ARE DEAD 💀<br>
+    <button class="restart-btn" onclick="restartGame()">🔁 Restart</button>
+  </div>
+
+  <script>
+    let attackers, bullets, mouse, dead, bulletSpeed, attackPattern, time;
+    let timerInterval, shootTimeout, moveTimeout, patternInterval;
+    let emojiElements = [], healthElements = [], extraLife = 0;
+
+    const emojis = ['☠️'];
+    const healthEmojis = ['❤️'];
+    const timerElement = document.getElementById("timer");
+    const deadMsg = document.getElementById("deadMsg");
+
+    function initGame() {
+      document.querySelectorAll('.bullet').forEach(b => b.remove());
+      document.querySelectorAll('span').forEach(e => e.remove());
+
+      bullets = [];
+      emojiElements = [];
+      healthElements = [];
+      dead = false;
+      extraLife = 0;
+      bulletSpeed = 4;
+      attackPattern = 1;
+      time = 0.0;
+
+      mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+      attackers = [
+        { el: document.getElementById('a1'), x: 100, y: 100 },
+        { el: document.getElementById('a2'), x: window.innerWidth - 100, y: 150 },
+        { el: document.getElementById('a3'), x: 100, y: window.innerHeight - 150 },
+        { el: document.getElementById('a4'), x: window.innerWidth - 150, y: window.innerHeight - 100 },
+        { el: document.getElementById('a5'), x: 0, y: window.innerHeight / 2 - 30 },
+        { el: document.getElementById('a6'), x: window.innerWidth - 60, y: window.innerHeight / 2 - 30 }
+      ];
+
+      placeAttackers();
+      shootBullets();
+      moveBullets();
+      moveAttackers();
+      startTimer();
+      startPatternLoop();
+
+      for (let i = 0; i < 8; i++) createEmoji();
+      for (let i = 0; i < 3; i++) createHealthEmoji();
+      moveEmojis();
+    }
+
+    function startTimer() {
+      timerElement.textContent = `⏱️ Survived: 0.0s`;
+      timerInterval = setInterval(() => {
+        if (!dead) {
+          time += 0.1;
+          timerElement.textContent = `⏱️ Survived: ${time.toFixed(1)}s`;
+        }
+      }, 100);
+    }
+
+    function startPatternLoop() {
+      patternInterval = setInterval(() => {
+        if (!dead) {
+          attackPattern++;
+          bulletSpeed += 0.5;
+          if (attackPattern > 4) attackPattern = 1;
+        }
+      }, 10000);
+    }
+
+    document.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    function shootBullets() {
+      let selected = [];
+
+      switch (attackPattern) {
+        case 1:
+          selected = attackers.sort(() => 0.5 - Math.random()).slice(0, 2);
+          break;
+        case 2:
+          selected = [attackers[0], attackers[2], attackers[4]];
+          break;
+        case 3:
+          selected = attackers;
+          break;
+        case 4:
+          selected = [attackers[0], attackers[3]];
+          break;
+      }
+
+      selected.forEach(att => {
+        const angle = Math.atan2(mouse.y - att.y, mouse.x - att.x);
+        let angles = [angle];
+        if (attackPattern === 2 || attackPattern === 3) {
+          angles = [angle, angle + 0.2, angle - 0.2];
+        }
+
+        angles.forEach(ang => {
+          const bullet = document.createElement('div');
+          bullet.classList.add('bullet');
+          bullet.style.left = att.x + 25 + 'px';
+          bullet.style.top = att.y + 25 + 'px';
+          document.body.appendChild(bullet);
+
+          bullets.push({
+            el: bullet,
+            x: att.x + 25,
+            y: att.y + 25,
+            dx: Math.cos(ang) * bulletSpeed,
+            dy: Math.sin(ang) * bulletSpeed
+          });
+        });
+      });
+
+      if (!dead) shootTimeout = setTimeout(shootBullets, 600);
+    }
+
+    function moveBullets() {
+      bullets.forEach((b, i) => {
+        b.x += b.dx;
+        b.y += b.dy;
+        b.el.style.left = b.x + 'px';
+        b.el.style.top = b.y + 'px';
+
+        const dist = Math.hypot(mouse.x - b.x, mouse.y - b.y);
+        if (dist < 15 && !dead) {
+          if (extraLife > 0) {
+            extraLife--;
+            b.el.remove();
+            bullets.splice(i, 1);
+          } else {
+            dead = true;
+            deadMsg.style.display = 'block';
+            clearInterval(timerInterval);
+            clearInterval(patternInterval);
+          }
+        }
+
+        if (b.x < 0 || b.x > window.innerWidth || b.y < 0 || b.y > window.innerHeight) {
+          b.el.remove();
+          bullets.splice(i, 1);
+        }
+      });
+
+      requestAnimationFrame(moveBullets);
+    }
+
+    function moveAttackers() {
+      attackers.forEach(att => {
+        att.x += Math.random() * 6 - 3;
+        att.y += Math.random() * 6 - 3;
+
+        att.x = Math.max(0, Math.min(window.innerWidth - 60, att.x));
+        att.y = Math.max(0, Math.min(window.innerHeight - 60, att.y));
+
+        att.el.style.left = att.x + 'px';
+        att.el.style.top = att.y + 'px';
+      });
+
+      if (!dead) moveTimeout = setTimeout(moveAttackers, 50);
+    }
+
+    function placeAttackers() {
+      attackers.forEach(a => {
+        a.el.style.left = a.x + 'px';
+        a.el.style.top = a.y + 'px';
+      });
+    }
+
+    function restartGame() {
+      clearInterval(timerInterval);
+      clearInterval(patternInterval);
+      clearTimeout(shootTimeout);
+      clearTimeout(moveTimeout);
+      deadMsg.style.display = 'none';
+      initGame();
+    }
+
+	// 🎯 Fix: Create dangerous emojis (💣 etc.)
+function createEmoji() {
+  const span = document.createElement('span');
+  span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  span.style.position = 'absolute';
+  span.style.fontSize = '25px';
+  span.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+  span.style.top = Math.random() * (window.innerHeight - 30) + 'px';
+  span.style.pointerEvents = 'none';
+  span.style.zIndex = 100;
+  span.style.color = 'hue-rotate(180deg)'; // Random color
+  document.body.appendChild(span);
+
+  function getRandomColor() {
+  const colors = ['red', 'cyan', 'lime', 'yellow', 'orange', 'violet', 'magenta', 'blue', 'pink', 'white'];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function colorizeEmojis() {
+  emojiElements.forEach(e => {
+    const color = getRandomColor();
+    e.el.style.color = color;
+    e.el.style.textShadow = `0 0 5px ${color}, 0 0 10px ${color}`;
+  });
+}
+
+// রেন্ডম রঙ বদলাবে প্রতি 2 সেকেন্ডে
+setInterval(() => {
+  if (!dead) {
+    colorizeEmojis();
+  }
+}, 2000);
+  document.body.appendChild(span);
+
+  emojiElements.push({
+    el: span,
+    x: parseFloat(span.style.left),
+    y: parseFloat(span.style.top),
+    dx: Math.random() * 1.5 - 0.75,
+    dy: Math.random() * 1.5 - 0.75
+  });
+}
+
+// 🎯 Fix: Create health emojis (❤️)
+function createHealthEmoji() {
+  const span = document.createElement('span');
+  span.textContent = healthEmojis[Math.floor(Math.random() * healthEmojis.length)];
+  span.style.position = 'absolute';
+  span.style.fontSize = '34px';
+  span.style.left = Math.random() * (window.innerWidth - 30) + 'px';
+  span.style.top = Math.random() * (window.innerHeight - 30) + 'px';
+  span.style.pointerEvents = 'none';
+  span.style.color = 'lime';
+  span.style.zIndex = 101;
+  document.body.appendChild(span);
+
+  healthElements.push({
+    el: span,
+    x: parseFloat(span.style.left),
+    y: parseFloat(span.style.top),
+    dx: Math.random() * 1.2 - 0.6,
+    dy: Math.random() * 1.2 - 0.6
+  });
+}
+
+// 🎯 Fix: Move emojis + check collisions
+function moveEmojis() {
+  emojiElements.forEach((e, i) => {
+    e.x += e.dx;
+    e.y += e.dy;
+
+    if (e.x < 0 || e.x > window.innerWidth - 20) e.dx *= -1;
+    if (e.y < 0 || e.y > window.innerHeight - 20) e.dy *= -1;
+
+    e.el.style.left = e.x + 'px';
+    e.el.style.top = e.y + 'px';
+
+    const dist = Math.hypot(mouse.x - e.x, mouse.y - e.y);
+    if (dist < 25 && !dead) {
+      if (extraLife > 0) {
+        extraLife--;
+        e.el.remove();
+        emojiElements.splice(i, 1);
+      } else {
+        dead = true;
+        deadMsg.style.display = 'block';
+        clearInterval(timerInterval);
+        clearInterval(patternInterval);
+      }
+    }
+  });
+
+  healthElements.forEach((h, i) => {
+    h.x += h.dx;
+    h.y += h.dy;
+
+    if (h.x < 0 || h.x > window.innerWidth - 20) h.dx *= -1;
+    if (h.y < 0 || h.y > window.innerHeight - 20) h.dy *= -1;
+
+    h.el.style.left = h.x + 'px';
+    h.el.style.top = h.y + 'px';
+
+    const dist = Math.hypot(mouse.x - h.x, mouse.y - h.y);
+    if (dist < 30 && !dead) {
+      extraLife++;
+      h.el.remove();
+      healthElements.splice(i, 1);
+    }
+  });
+
+  if (!dead) requestAnimationFrame(moveEmojis);
+}
+
+    initGame();
+  </script>
+</body>
+</html>

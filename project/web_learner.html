@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Developer Resources</title>
+     <link rel="icon" type="image/png" href="panda.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    // Force Tailwind to use class-based dark mode
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        
+        .syntax-highlight {
+            background-color: #000000;
+            color: #f8f8f2;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans transition-colors duration-300 dark:bg-gray-900 dark:text-white">
+    <!-- Dark Mode Toggle -->
+  <div class="fixed top-4 right-4 z-50">
+    <button id="darkToggle"
+      class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-md flex items-center gap-2">
+      <span id="icon">🌙</span>
+      <span id="modeText">Enable Dark Mode</span>
+    </button>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("darkToggle");
+    const html = document.documentElement;
+    const icon = document.getElementById("icon");
+    const modeText = document.getElementById("modeText");
+
+    // FIX: load user preference
+    if (localStorage.getItem("theme") === "dark") {
+      html.classList.add("dark");
+      icon.textContent = "☀️";
+      modeText.textContent = "Enable Light Mode";
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      html.classList.toggle("dark");
+      const isDark = html.classList.contains("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      icon.textContent = isDark ? "☀️" : "🌙";
+      modeText.textContent = isDark ? "Enable Light Mode" : "Enable Dark Mode";
+    });
+  </script>
+
+  <!-- Your existing site content BELOW (unchanged) -->
+  <!-- Header, Tools, Playground, Footer etc. -->
+    </div>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white">
+        <div class="container mx-auto px-4 py-16">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-8 md:mb-0 md:w-1/2">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4">Developer Resource</h1>
+                    <p class="text-xl mb-6">Your all-in-one web development toolkit with everything you need to build amazing websites and applications.</p>
+                    
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="panda.png" alt="Developer Illustration" class="w-64 h-64 md:w-80 md:h-80">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Categories -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center dark:text-white">Tool Categories</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="#html-tools" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fab fa-html5 text-4xl text-orange-500 mb-3"></i>
+                    <h3 class="font-semibold dark:text-white">HTML</h3>
+                </a>
+                <a href="#css-tools" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fab fa-css3-alt text-4xl text-blue-500 mb-3"></i>
+                    <h3 class="font-semibold dark:text-white">CSS</h3>
+                </a>
+                <a href="#js-tools" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fab fa-js-square text-4xl text-yellow-500 mb-3"></i>
+                    <h3 class="font-semibold dark:text-white">JavaScript</h3>
+                </a>
+                <a href="#framework-tools" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-center hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-cubes text-4xl text-purple-500 mb-3"></i>
+                    <h3 class="font-semibold dark:text-white">Frameworks</h3>
+                </a>
+            </div>
+        </section>
+
+        <!-- HTML Tools -->
+        <section id="html-tools" class="mb-16">
+            <div class="flex items-center mb-8">
+                <i class="fab fa-html5 text-3xl text-orange-500 mr-4"></i>
+                <h2 class="text-3xl font-bold dark:text-white">HTML Tools</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- HTML Validator -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-check-circle text-2xl text-green-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">HTML Validator</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Validate your HTML code against W3C standards to ensure compliance and accessibility.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HTML Formatter -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-align-left text-2xl text-blue-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">HTML Formatter</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Beautify and format your HTML code for better readability and maintainability.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HTML Minifier -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-compress-alt text-2xl text-red-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">HTML Minifier</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Minify your HTML code to reduce file size and improve page load performance.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CSS Tools -->
+        <section id="css-tools" class="mb-16">
+            <div class="flex items-center mb-8">
+                <i class="fab fa-css3-alt text-3xl text-blue-500 mr-4"></i>
+                <h2 class="text-3xl font-bold dark:text-white">CSS Tools</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- CSS Generator -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-magic text-2xl text-purple-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">CSS Generator</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Generate CSS for shadows, gradients, transforms and more with a visual interface.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSS Prefixer -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-code text-2xl text-green-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">CSS Prefixer</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Automatically add vendor prefixes to your CSS for maximum browser compatibility.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CSS Minifier -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-compress-alt text-2xl text-red-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">CSS Minifier</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Minify your CSS files to reduce their size and improve website loading speed.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JavaScript Tools -->
+        <section id="js-tools" class="mb-16">
+            <div class="flex items-center mb-8">
+                <i class="fab fa-js-square text-3xl text-yellow-500 mr-4"></i>
+                <h2 class="text-3xl font-bold dark:text-white">JavaScript Tools</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- JS Validator -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-check-circle text-2xl text-green-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">JS Validator</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Validate your JavaScript code for syntax errors and potential issues.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JS Formatter -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-align-left text-2xl text-blue-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">JS Formatter</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Format and beautify your JavaScript code for better readability.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JS Minifier -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-compress-alt text-2xl text-red-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">JS Minifier</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Minify your JavaScript files to reduce their size and improve performance.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Framework Tools -->
+        <section id="framework-tools" class="mb-16">
+            <div class="flex items-center mb-8">
+                <i class="fas fa-cubes text-3xl text-purple-500 mr-4"></i>
+                <h2 class="text-3xl font-bold dark:text-white">Framework Tools</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- React Tools -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-react text-2xl text-blue-400 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">React Tools</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">JSX formatter, component generator, and other essential React utilities.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vue Tools -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-vuejs text-2xl text-green-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">Vue Tools</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Vue component generator, SFC compiler, and other Vue.js utilities.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Angular Tools -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden tool-card transition-transform duration-300">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-angular text-2xl text-red-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">Angular Tools</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Component generator, pipe creator, and other Angular development tools.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Try it now</a>
+                            <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 text-xs px-2 py-1 rounded">Free</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Playground -->
+        <section class="mb-16 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 h-[800px]">
+            <section class="editor-preview">
+  <!-- Left side: Editor -->
+  <div class="editor">
+    <textarea id="code" placeholder="Write HTML, CSS, JS here..."></textarea>
+    <button onclick="runCode()">Test Your Code - (Run)</button>
+  </div>
+
+  <!-- Right side: Output -->
+  <div class="preview">
+    <iframe id="output"></iframe>
+  </div>
+</section>
+
+<style>
+  .editor-preview {
+    display: flex;
+    height: 100%;
+  }
+
+  .editor {
+    width: 50%;
+    padding: 10px;
+    background: #1e1e1e;
+    color: white;
+    display: flex;
+    flex-direction: column;
+  }
+
+  textarea {
+    flex: 1;
+    background: #000;
+    color: #0f0;
+    font-family: monospace;
+    font-size: 14px;
+    padding: 10px;
+    border: none;
+    resize: none;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 8px;
+    background: #9c27b0;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .preview {
+    width: 50%;
+    background: white;
+    border-left: 2px solid #9c27b0;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
+
+<script>
+  function runCode() {
+    const code = document.getElementById("code").value;
+    const output = document.getElementById("output").contentWindow.document;
+    output.open();
+    output.write(code);
+    output.close();
+  }
+</script>
+
+        </section>
+
+
+
+
+        
+        <!-- Cheat Sheets -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 dark:text-white">Cheat Sheets</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-html5 text-2xl text-orange-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">HTML5 Cheat Sheet</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">All HTML5 tags, attributes, and semantic elements in one place.</p>
+                        <a href="web-learner/htmlcheetsheet.html" class="text-indigo-600 dark:text-indigo-400 hover:underline">View Cheat Sheet</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-css3-alt text-2xl text-blue-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">CSS3 Cheat Sheet</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Complete reference for CSS properties, selectors, and values.</p>
+                        <a href="web-learner\csscheetsheet.html" class="text-indigo-600 dark:text-indigo-400 hover:underline">View Cheat Sheet</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fab fa-js text-2xl text-yellow-500 mr-3"></i>
+                            <h3 class="text-xl font-semibold dark:text-white">JavaScript Cheat Sheet</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Essential JavaScript syntax, methods, and patterns.</p>
+                        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">View Cheat Sheet</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    <div class="p-6">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-terminal text-2xl text-green-500 mr-3"></i>
+                        <h3 class="text-xl font-semibold dark:text-white">Git Cheat Sheet</h3>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Common Git commands and workflows for version control.</p>
+                        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">View Cheat Sheet</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 dark:text-white">Learning Resources</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Coding" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 dark:text-white">Interactive Tutorials</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Learn by doing with our interactive coding tutorials and exercises.</p>
+                        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Start Learning</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="Video Tutorials" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 dark:text-white">Video Courses</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Comprehensive video courses for all skill levels from beginner to advanced.</p>
+                        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Browse Courses</a>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Blog" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2 dark:text-white">Developer Blog</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Articles, tips, and tricks from experienced developers in the industry.</p>
+                        <a href="#" class="text-indigo-600 dark:text-indigo-400 hover:underline">Read Articles</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Newsletter -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">write your name, other details and Problem... </p>
+
+
+  <input type="text" id="msg" placeholder="Write your message">
+  <button onclick="sendMessage()">Send</button>
+
+<style>
+#msg {
+  width: 60%;
+  height: 60px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-right: 10px;
+  color: #000;
+}
+
+</style>
+  <script>
+    function sendMessage() {
+      let message = document.getElementById("msg").value;
+      let token = "YOUR_BOT_TOKEN";  // এখানে বট টোকেন বসাও
+      let chatId = "YOUR_CHAT_ID";   // এখানে নিজের Chat ID বসাও
+
+      let url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+      fetch(url)
+        .then(response => {
+          if(response.ok){
+            alert("Message sent to Telegram ✅");
+          } else {
+            alert("Error sending message ❌");
+          }
+        });
+    }
+  </script>
+
+
+
+
+
+
+
+            <div class="max-w-md mx-auto flex">
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Web Developer Resources</h3>
+                    <p class="text-gray-400">Your all-in-one web development toolkit with everything you need to build amazing websites and applications.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Resources</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Categories</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">HTML Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">CSS Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">JavaScript Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Framework Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-whatsapp text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-github text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-telegram text-xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-youtube text-xl"></i></a>
+                    </div>
+                    <p class="text-gray-400">support@devtoolshub.com</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Panda web developers. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+  
+   
+    
+    
+</script>
+
+
+</body></html>

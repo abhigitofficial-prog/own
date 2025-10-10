@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Cheat Sheet with Content</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 30px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #1a2530);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border-radius: 20px;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .left-panel {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .right-panel {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eaecef;
+        }
+        
+        h3 {
+            color: #3498db;
+            margin: 25px 0 15px 0;
+        }
+        
+        pre {
+            background: #deff8a;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 2px 5px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        .content-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .content-box h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content-box h4 i {
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+        
+        .content-box p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .content-box ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .content-box li {
+            margin-bottom: 8px;
+        }
+        
+        .content-box .code-example {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .try-button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+            display: inline-block;
+        }
+        
+        .try-button:hover {
+            background: #2980b9;
+        }
+        
+        .tag {
+            background: #f3f5f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .tag-name {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .tag-description {
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: #7f8c8d;
+            border-top: 1px solid #eaecef;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <header>
+        <h1>HTML Cheat Sheet</h1>
+        <p>Tag → Details with Additional Content</p>
+    </header>
+
+    <div class="container">
+        <div class="left-panel">
+            
+            <h2>🏗 Basic Structure</h2>
+  
+  <pre>
+    <b>
+        
+&lt;html&gt; → Root element of HTML document
+&lt;head&gt; → Contains metadata, links, title, scripts
+&lt;body&gt; → Main content of the webpage
+&lt;!DOCTYPE html&gt; → Defines HTML5 document type
+
+</b> 
+</pre>
+
+  <h2>✍️ Text & Headings</h2>
+  
+  <pre>
+    <b>
+        
+&lt;h1&gt; ... &lt;h6&gt; → Headings (largest to smallest)
+&lt;p&gt; → Paragraph text
+&lt;b&gt; / &lt;strong&gt; → Bold / Important text
+&lt;i&gt; / &lt;em&gt; → Italic / Emphasized text
+&lt;u&gt; → Underlined text
+&lt;mark&gt; → Highlighted text
+&lt;small&gt; → Small text
+&lt;sup&gt; → Superscript (x²)
+&lt;sub&gt; → Subscript (H₂O)
+&lt;br&gt; → Line break
+&lt;hr&gt; → Horizontal line
+&lt;blockquote&gt; → Block quote
+&lt;pre&gt; → Preformatted text
+&lt;code&gt; → Inline code
+
+</b> 
+</pre>
+
+  <h2>🔗 Links & Media</h2>
+  
+  <pre>
+    <b>
+        
+&lt;a&gt; → Hyperlink
+&lt;img&gt; → Image
+&lt;audio&gt; → Audio player
+&lt;video&gt; → Video player
+&lt;source&gt; → Defines source file (inside audio/video)
+&lt;iframe&gt; → Embed another webpage
+&lt;embed&gt; → Embed external file (PDF, etc.)
+&lt;object&gt; → Embed external objects (media/app)
+
+</b> 
+</pre>
+
+  <h2>📋 Lists</h2>
+  
+  <pre>
+    <b>
+        
+&lt;ul&gt; → Unordered list (bullet points)
+&lt;ol&gt; → Ordered list (numbers)
+&lt;li&gt; → List item
+&lt;dl&gt; → Description list
+&lt;dt&gt; → Term in description list
+&lt;dd&gt; → Description of term
+
+</b> 
+</pre>
+
+  <h2>📊 Tables</h2>
+  
+  <pre>
+    <b>
+        
+&lt;table&gt; → Table container
+&lt;caption&gt; → Table title
+&lt;tr&gt; → Table row
+&lt;th&gt; → Table header cell
+&lt;td&gt; → Table data cell
+&lt;thead&gt; → Group of header rows
+&lt;tbody&gt; → Group of body rows
+&lt;tfoot&gt; → Group of footer rows
+&lt;col&gt; → Defines column properties
+&lt;colgroup&gt; → Groups columns
+
+</b> 
+</pre>
+
+  <h2>📝 Forms & Inputs</h2>
+  
+  <pre>
+    <b>
+        
+&lt;form&gt; → Form container
+&lt;input&gt; → Input field (text, password, checkbox, radio, etc.)
+&lt;textarea&gt; → Multi-line text box
+&lt;button&gt; → Button
+&lt;select&gt; → Dropdown menu
+&lt;option&gt; → Option in dropdown
+&lt;optgroup&gt; → Grouped options in dropdown
+&lt;label&gt; → Label for input field
+&lt;fieldset&gt; → Group related inputs
+&lt;legend&gt; → Caption for fieldset
+&lt;datalist&gt; → Predefined options for input
+&lt;output&gt; → Display result of a calculation
+
+</b> 
+</pre>
+
+  <h2>📑 Semantic Elements</h2>
+  
+  <pre>
+    <b>
+        
+&lt;header&gt; → Header section
+&lt;nav&gt; → Navigation links
+&lt;main&gt; → Main content area
+&lt;section&gt; → Section of content
+&lt;article&gt; → Independent article content
+&lt;aside&gt; → Sidebar / extra info
+&lt;footer&gt; → Footer section
+&lt;figure&gt; → Container for image/illustration
+&lt;figcaption&gt; → Caption for figure
+
+</b> 
+</pre>
+
+  <h2>🎨 Multimedia & Graphics</h2>
+  
+  <pre>
+    <b>
+    
+&lt;canvas&gt; → Drawing area for graphics (JS)
+&lt;svg&gt; → Scalable Vector Graphics
+&lt;circle&gt;, &lt;rect&gt;, &lt;line&gt;, &lt;path&gt; → Shapes inside SVG
+
+</b> 
+</pre>
+
+  <h2>⚙️ Head & Metadata</h2>
+  
+  <pre>
+    <b>
+        
+&lt;title&gt; → Page title (shown in browser tab)
+&lt;meta&gt; → Metadata (charset, description, keywords, author)
+&lt;link&gt; → Link external files (CSS, favicon)
+&lt;style&gt; → Internal CSS styles
+&lt;script&gt; → JavaScript code
+
+</b>
+</pre>
+
+  <h2>🧩 Miscellaneous</h2>
+  
+  <pre>
+    <b>
+        
+&lt;details&gt; → Expandable content
+&lt;summary&gt; → Title of details section
+&lt;progress&gt; → Progress bar
+&lt;meter&gt; → Gauge/measurement bar
+&lt;dialog&gt; → Dialog box / popup
+&lt;time&gt; → Represents time/date
+&lt;abbr&gt; → Abbreviation
+&lt;address&gt; → Contact info
+&lt;bdi&gt; → Bi-directional text isolation
+&lt;bdo&gt; → Bi-directional text override
+
+</b> 
+</pre>
+            
+        </div>
+        
+        <div class="right-panel">
+            <!-- Additional Content Boxes -->
+            <div class="content-box">
+                <h4><i class="fas fa-lightbulb"></i> Examples </h4>
+                
+                <div class="code-example">
+
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border-radius: 8px;
+        }
+        h2 {
+            background-color: #4a6fc7;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-top: 40px;
+        }
+        .example-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        }
+        .tag {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        .code-example {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #4a6fc7;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+        }
+        .rendered-output {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border: 1px dashed #4a6fc7;
+        }
+        .description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+        .copy-btn {
+            background-color: #4a6fc7;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .copy-btn:hover {
+            background-color: #3a5bb0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+
+
+                    <h2>🏗 Basic Structure</h2>
+    
+    <div class="example-container">
+        <div class="tag">&lt;html&gt;</div>
+        <div class="description">Root element of HTML document</div>
+        <div class="code-example">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Page content
+  &lt;/body&gt;
+&lt;/html&gt;</div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;head&gt;</div>
+        <div class="description">Contains metadata, links, title, scripts</div>
+        <div class="code-example">&lt;head&gt;
+  &lt;title&gt;My Page&lt;/title&gt;
+  &lt;meta charset="UTF-8"&gt;
+&lt;/head&gt;</div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;body&gt;</div>
+        <div class="description">Main content of the webpage</div>
+        <div class="code-example">&lt;body&gt;
+  &lt;h1&gt;Welcome to my website&lt;/h1&gt;
+  &lt;p&gt;This is the content of my page.&lt;/p&gt;
+&lt;/body&gt;</div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;!DOCTYPE html&gt;</div>
+        <div class="description">Defines HTML5 document type</div>
+        <div class="code-example">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;!-- content --&gt;
+&lt;/html&gt;</div>
+    </div>
+    
+    <h2>✍️ Text & Headings</h2>
+    
+    <div class="example-container">
+        <div class="tag">&lt;h1&gt; ... &lt;h6&gt;</div>
+        <div class="description">Headings (largest to smallest)</div>
+        <div class="code-example">&lt;h1&gt;Main Heading&lt;/h1&gt;
+&lt;h2&gt;Subheading&lt;/h2&gt;
+&lt;h3&gt;Smaller Heading&lt;/h3&gt;</div>
+        <div class="rendered-output">
+            <h1 style="margin: 5px 0;">Main Heading</h1>
+            <h2 style="margin: 5px 0;">Subheading</h2>
+            <h3 style="margin: 5px 0;">Smaller Heading</h3>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;p&gt;</div>
+        <div class="description">Paragraph text</div>
+        <div class="code-example">&lt;p&gt;This is a paragraph of text.&lt;/p&gt;</div>
+        <div class="rendered-output">
+            <p>This is a paragraph of text.</p>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;b&gt; / &lt;strong&gt;</div>
+        <div class="description">Bold / Important text</div>
+        <div class="code-example">&lt;b&gt;Bold text&lt;/b&gt; or &lt;strong&gt;Important text&lt;/strong&gt;</div>
+        <div class="rendered-output">
+            <b>Bold text</b> or <strong>Important text</strong>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;i&gt; / &lt;em&gt;</div>
+        <div class="description">Italic / Emphasized text</div>
+        <div class="code-example">&lt;i&gt;Italic text&lt;/i&gt; or &lt;em&gt;Emphasized text&lt;/em&gt;</div>
+        <div class="rendered-output">
+            <i>Italic text</i> or <em>Emphasized text</em>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;u&gt;</div>
+        <div class="description">Underlined text</div>
+        <div class="code-example">&lt;u&gt;Underlined text&lt;/u&gt;</div>
+        <div class="rendered-output">
+            <u>Underlined text</u>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;mark&gt;</div>
+        <div class="description">Highlighted text</div>
+        <div class="code-example">&lt;mark&gt;Highlighted text&lt;/mark&gt;</div>
+        <div class="rendered-output">
+            <mark>Highlighted text</mark>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;small&gt;</div>
+        <div class="description">Small text</div>
+        <div class="code-example">&lt;small&gt;Small text&lt;/small&gt;</div>
+        <div class="rendered-output">
+            <small>Small text</small>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;sup&gt;</div>
+        <div class="description">Superscript (x²)</div>
+        <div class="code-example">x&lt;sup&gt;2&lt;/sup&gt;</div>
+        <div class="rendered-output">
+            x<sup>2</sup>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;sub&gt;</div>
+        <div class="description">Subscript (H₂O)</div>
+        <div class="code-example">H&lt;sub&gt;2&lt;/sub&gt;O</div>
+        <div class="rendered-output">
+            H<sub>2</sub>O
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;br&gt;</div>
+        <div class="description">Line break</div>
+        <div class="code-example">Line 1&lt;br&gt;Line 2</div>
+        <div class="rendered-output">
+            Line 1<br>Line 2
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;hr&gt;</div>
+        <div class="description">Horizontal line</div>
+        <div class="code-example">&lt;section&gt;
+  &lt;p&gt;Content above&lt;/p&gt;
+  &lt;hr&gt;
+  &lt;p&gt;Content below&lt;/p&gt;
+&lt;/section&gt;</div>
+        <div class="rendered-output">
+            <section>
+                <p>Content above</p>
+                <hr>
+                <p>Content below</p>
+            </section>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;blockquote&gt;</div>
+        <div class="description">Block quote</div>
+        <div class="code-example">&lt;blockquote&gt;This is a quoted section of text.&lt;/blockquote&gt;</div>
+        <div class="rendered-output">
+            <blockquote>This is a quoted section of text.</blockquote>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;pre&gt;</div>
+        <div class="description">Preformatted text</div>
+        <div class="code-example">&lt;pre&gt;
+  Preformatted
+     text
+  with spaces
+&lt;/pre&gt;</div>
+        <div class="rendered-output">
+            <pre>
+  Preformatted
+     text
+  with spaces
+</pre>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;code&gt;</div>
+        <div class="description">Inline code</div>
+        <div class="code-example">&lt;code&gt;console.log('Hello');&lt;/code&gt;</div>
+        <div class="rendered-output">
+            <code>console.log('Hello');</code>
+        </div>
+    </div>
+    
+    <h2>🔗 Links & Media</h2>
+    
+    <div class="example-container">
+        <div class="tag">&lt;a&gt;</div>
+        <div class="description">Hyperlink</div>
+        <div class="code-example">&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;</div>
+        <div class="rendered-output">
+            <a href="#example">Visit Example</a>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;img&gt;</div>
+        <div class="description">Image</div>
+        <div class="code-example">&lt;img src="image.jpg" alt="Description of image"&gt;</div>
+        <div class="rendered-output">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2RkZGRkZCIvPgogIDx0ZXh0IHg9IjUwIiB5PSI1MCIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzY2NiI+SW1hZ2U8L3RleHQ+Cjwvc3ZnPg==" alt="Description of image" width="100">
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;audio&gt;</div>
+        <div class="description">Audio player</div>
+        <div class="code-example">&lt;audio controls&gt;
+  &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+&lt;/audio&gt;</div>
+        <div class="rendered-output">
+            <audio controls style="width: 100%">
+                <source src="#" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;video&gt;</div>
+        <div class="description">Video player</div>
+        <div class="code-example">&lt;video controls width="250"&gt;
+  &lt;source src="video.mp4" type="video/mp4"&gt;
+&lt;/video&gt;</div>
+        <div class="rendered-output">
+            <video controls width="250" style="background: #ddd;">
+                <source src="#" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;source&gt;</div>
+        <div class="description">Defines source file (inside audio/video)</div>
+        <div class="code-example">&lt;video controls&gt;
+  &lt;source src="movie.mp4" type="video/mp4"&gt;
+  &lt;source src="movie.ogg" type="video/ogg"&gt;
+&lt;/video&gt;</div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;iframe&gt;</div>
+        <div class="description">Embed another webpage</div>
+        <div class="code-example">&lt;iframe src="https://example.com" title="Example" width="300" height="200"&gt;&lt;/iframe&gt;</div>
+        <div class="rendered-output">
+            <iframe srcdoc="<html><body style='background:#eee;text-align:center;padding:20px;'>Example Iframe Content</body></html>" title="Example" width="300" height="200"></iframe>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;embed&gt;</div>
+        <div class="description">Embed external file (PDF, etc.)</div>
+        <div class="code-example">&lt;embed src="game.swf" type="application/x-shockwave-flash"&gt;</div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;object&gt;</div>
+        <div class="description">Embed external objects (media/app)</div>
+        <div class="code-example">&lt;object data="document.pdf" type="application/pdf" width="300" height="200"&gt;
+  Alternative text for the object
+&lt;/object&gt;</div>
+    </div>
+    
+    <h2>📋 Lists</h2>
+    
+    <div class="example-container">
+        <div class="tag">&lt;ul&gt;</div>
+        <div class="description">Unordered list (bullet points)</div>
+        <div class="code-example">&lt;ul&gt;
+  &lt;li&gt;First item&lt;/li&gt;
+  &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ul&gt;</div>
+        <div class="rendered-output">
+            <ul>
+                <li>First item</li>
+                <li>Second item</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;ol&gt;</div>
+        <div class="description">Ordered list (numbers)</div>
+        <div class="code-example">&lt;ol&gt;
+  &lt;li&gt;First item&lt;/li&gt;
+  &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ol&gt;</div>
+        <div class="rendered-output">
+            <ol>
+                <li>First item</li>
+                <li>Second item</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;li&gt;</div>
+        <div class="description">List item</div>
+        <div class="code-example">&lt;li&gt;List item&lt;/li&gt;</div>
+        <div class="rendered-output">
+            <li>List item</li>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;dl&gt;</div>
+        <div class="description">Description list</div>
+        <div class="code-example">&lt;dl&gt;
+  &lt;dt&gt;HTML&lt;/dt&gt;
+  &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+&lt;/dl&gt;</div>
+        <div class="rendered-output">
+            <dl>
+                <dt>HTML</dt>
+                <dd>HyperText Markup Language</dd>
+            </dl>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;dt&gt;</div>
+        <div class="description">Term in description list</div>
+        <div class="code-example">&lt;dt&gt;Term&lt;/dt&gt;</div>
+        <div class="rendered-output">
+            <dt>Term</dt>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;dd&gt;</div>
+        <div class="description">Description of term</div>
+        <div class="code-example">&lt;dd&gt;Description of term&lt;/dd&gt;</div>
+        <div class="rendered-output">
+            <dd>Description of term</dd>
+        </div>
+    </div>
+    
+    <h2>📊 Tables</h2>
+    
+    <div class="example-container">
+        <div class="tag">&lt;table&gt;</div>
+        <div class="description">Table container</div>
+        <div class="code-example">&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Name&lt;/th&gt;
+    &lt;th&gt;Age&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;John&lt;/td&gt;
+    &lt;td&gt;30&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</div>
+        <div class="rendered-output">
+            <table border="1" style="border-collapse: collapse; width: 100%;">
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+                <tr>
+                    <td>John</td>
+                    <td>30</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;caption&gt;</div>
+        <div class="description">Table title</div>
+        <div class="code-example">&lt;table border="1"&gt;
+  &lt;caption&gt;Monthly Savings&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;td&gt;January&lt;/td&gt;
+    &lt;td&gt;$100&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</div>
+        <div class="rendered-output">
+            <table border="1" style="border-collapse: collapse; width: 100%;">
+                <caption>Monthly Savings</caption>
+                <tr>
+                    <td>January</td>
+                    <td>$100</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;tr&gt;</div>
+        <div class="description">Table row</div>
+        <div class="code-example">&lt;tr&gt;
+  &lt;td&gt;Table row data&lt;/td&gt;
+&lt;/tr&gt;</div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;th&gt;</div>
+        <div class="description">Table header cell</div>
+        <div class="code-example">&lt;th&gt;Table header&lt;/th&gt;</div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;td&gt;</div>
+        <div class="description">Table data cell</div>
+        <div class="code-example">&lt;td&gt;Table data cell&lt;/td&gt;</div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt;</div>
+        <div class="description">Group of header/body/footer rows</div>
+        <div class="code-example">&lt;table border="1"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Header&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Body content&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td&gt;Footer&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</div>
+        <div class="rendered-output">
+            <table border="1" style="border-collapse: collapse; width: 100%;">
+                <thead style="background-color: #f2f2f2;">
+                    <tr><th>Header</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Body content</td></tr>
+                </tbody>
+                <tfoot style="background-color: #f2f2f2;">
+                    <tr><td>Footer</td></tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    
+    <div class="example-container">
+        <div class="tag">&lt;colgroup&gt; and &lt;col&gt;</div>
+        <div class="description">Groups columns and defines column properties</div>
+        <div class="code-example">&lt;table border="1"&gt;
+  &lt;colgroup&gt;
+    &lt;col span="2" style="background-color:red"&gt;
+    &lt;col style="background-color:yellow"&gt;
+  &lt;/colgroup&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Col 1&lt;/td&gt;
+    &lt;td&gt;Col 2&lt;/td&gt;
+    &lt;td&gt;Col 3&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</div>
+    </div>
+    
+        <h2>📝 Forms & Inputs</h2>
+        <div class="container">
+            <div class="example-container">
+                <div class="tag">&lt;form&gt;</div>
+                <div class="description">Form container</div>
+                <div class="code-example">&lt;form action="/submit" method="post"&gt;
+  &lt;!-- form elements go here --&gt;
+&lt;/form&gt;</div>
+                <div class="rendered-output">
+                    <form action="/submit" method="post" style="padding: 10px; background: #f0f0f0;">
+                        <!-- form elements would go here -->
+                        Form container
+                    </form>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;input&gt;</div>
+                <div class="description">Input field (text, password, checkbox, radio, etc.)</div>
+                <div class="code-example">&lt;input type="text" placeholder="Enter your name"&gt;
+&lt;input type="password" placeholder="Enter password"&gt;
+&lt;input type="checkbox" id="agree"&gt;
+&lt;label for="agree"&gt;I agree&lt;/label&gt;</div>
+                <div class="rendered-output">
+                    <input type="text" placeholder="Enter your name" style="margin: 5px; padding: 5px;"><br>
+                    <input type="password" placeholder="Enter password" style="margin: 5px; padding: 5px;"><br>
+                    <input type="checkbox" id="agree" style="margin: 5px;">
+                    <label for="agree">I agree</label>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;textarea&gt;</div>
+                <div class="description">Multi-line text box</div>
+                <div class="code-example">&lt;textarea rows="4" cols="50"&gt;
+Default text goes here...
+&lt;/textarea&gt;</div>
+                <div class="rendered-output">
+                    <textarea rows="4" cols="30">Default text goes here...</textarea>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;button&gt;</div>
+                <div class="description">Button</div>
+                <div class="code-example">&lt;button type="button"&gt;Click Me&lt;/button&gt;</div>
+                <div class="rendered-output">
+                    <button type="button" style="padding: 8px 16px; background: #6a11cb; color: white; border: none; border-radius: 4px;">Click Me</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>📑 Semantic Elements</h2>
+        <div class="container">
+            <div class="example-container">
+                <div class="tag">&lt;header&gt;</div>
+                <div class="description">Header section</div>
+                <div class="code-example">&lt;header&gt;
+  &lt;h1&gt;Website Title&lt;/h1&gt;
+  &lt;p&gt;Website subtitle&lt;/p&gt;
+&lt;/header&gt;</div>
+                <div class="rendered-output">
+                    <header style="background: #6a11cb; color: white; padding: 15px; margin: 10px 0;">
+                        <h1 style="margin: 0; font-size: 1.5rem;">Website Title</h1>
+                        <p style="margin: 5px 0 0;">Website subtitle</p>
+                    </header>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;nav&gt;</div>
+                <div class="description">Navigation links</div>
+                <div class="code-example">&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#about"&gt;About&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</div>
+                <div class="rendered-output">
+                    <nav style="background: #f0f0f0; padding: 10px; margin: 10px 0;">
+                        <ul style="list-style: none; padding: 0; margin: 0; display: flex; gap: 15px;">
+                            <li><a href="#home" style="text-decoration: none; color: #6a11cb;">Home</a></li>
+                            <li><a href="#about" style="text-decoration: none; color: #6a11cb;">About</a></li>
+                            <li><a href="#contact" style="text-decoration: none; color: #6a11cb;">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;main&gt;</div>
+                <div class="description">Main content area</div>
+                <div class="code-example">&lt;main&gt;
+  &lt;h1&gt;Main Content Heading&lt;/h1&gt;
+  &lt;p&gt;This is the main content area.&lt;/p&gt;
+&lt;/main&gt;</div>
+                <div class="rendered-output">
+                    <main style="background: #f9f9f9; padding: 15px; margin: 10px 0; border-left: 3px solid #6a11cb;">
+                        <h1 style="margin: 0 0 10px; font-size: 1.3rem;">Main Content Heading</h1>
+                        <p style="margin: 0;">This is the main content area.</p>
+                    </main>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;aside&gt;</div>
+                <div class="description">Sidebar / extra info</div>
+                <div class="code-example">&lt;aside&gt;
+  &lt;h4&gt;Related Content&lt;/h4&gt;
+  &lt;p&gt;Sidebar content&lt;/p&gt;
+&lt;/aside&gt;</div>
+                <div class="rendered-output">
+                    <aside style="background: #f0f0f0; padding: 10px; margin: 10px 0;">
+                        <h4 style="margin: 0;">Related Content</h4>
+                        <p>Sidebar content</p>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>🎨 Multimedia & Graphics</h2>
+        <div class="container">
+            <div class="example-container">
+                <div class="tag">&lt;canvas&gt;</div>
+                <div class="description">Drawing area for graphics (JS)</div>
+                <div class="code-example">&lt;canvas id="myCanvas" width="200" height="100"&gt;
+Your browser does not support canvas.
+&lt;/canvas&gt;</div>
+                <div class="rendered-output">
+                    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3; background: #f9f9f9;">
+                        Your browser does not support canvas.
+                    </canvas>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;svg&gt;</div>
+                <div class="description">Scalable Vector Graphics</div>
+                <div class="code-example">&lt;svg width="100" height="100"&gt;
+  &lt;circle cx="50" cy="50" r="40" stroke="green" fill="yellow" /&gt;
+&lt;/svg&gt;</div>
+                <div class="rendered-output">
+                    <svg width="100" height="100">
+                        <circle cx="50" cy="50" r="40" stroke="green" stroke-width="2" fill="yellow" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>⚙️ Head & Metadata</h2>
+        <div class="container">
+            <div class="example-container">
+                <div class="tag">&lt;title&gt;</div>
+                <div class="description">Page title (shown in browser tab)</div>
+                <div class="code-example">&lt;title&gt;My Web Page&lt;/title&gt;</div>
+                <div class="rendered-output" style="background: #333; color: white; font-family: monospace;">
+                    &lt;head&gt;<br>
+                    &nbsp;&nbsp;&lt;title&gt;My Web Page&lt;/title&gt;<br>
+                    &lt;/head&gt;
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;meta&gt;</div>
+                <div class="description">Metadata (charset, description, keywords, author)</div>
+                <div class="code-example">&lt;meta charset="UTF-8"&gt;
+&lt;meta name="description" content="Free Web tutorials"&gt;
+&lt;meta name="keywords" content="HTML, CSS, JavaScript"&gt;
+&lt;meta name="author" content="John Doe"&gt;</div>
+                <div class="rendered-output" style="background: #333; color: white; font-family: monospace;">
+                    &lt;head&gt;<br>
+                    &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                    &nbsp;&nbsp;&lt;meta name="description" content="Free Web tutorials"&gt;<br>
+                    &nbsp;&nbsp;&lt;meta name="keywords" content="HTML, CSS, JavaScript"&gt;<br>
+                    &nbsp;&nbsp;&lt;meta name="author" content="John Doe"&gt;<br>
+                    &lt;/head&gt;
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category">
+        <h2>🧩 Miscellaneous</h2>
+        <div class="container">
+            <div class="example-container">
+                <div class="tag">&lt;details&gt; and &lt;summary&gt;</div>
+                <div class="description">Expandable content with title</div>
+                <div class="code-example">&lt;details&gt;
+  &lt;summary&gt;Click to expand&lt;/summary&gt;
+  &lt;p&gt;This is the hidden content that appears when expanded.&lt;/p&gt;
+&lt;/details&gt;</div>
+                <div class="rendered-output">
+                    <details>
+                        <summary>Click to expand</summary>
+                        <p>This is the hidden content that appears when expanded.</p>
+                    </details>
+                </div>
+            </div>
+
+            <div class="example-container">
+                <div class="tag">&lt;progress&gt;</div>
+                <div class="description">Progress bar</div>
+                <div class="code-example">&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;</div>
+                <div class="rendered-output">
+                    <progress value="70" max="100">70%</progress>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+                
+            </div>
+            
+            
+        </div>
+    </div>
+    
+    <footer>
+        <p>HTML Cheat Sheet with Additional Content | Created with ❤️ for Web Developers</p>
+    </footer>
+</body>
+</html>

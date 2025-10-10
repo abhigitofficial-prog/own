@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Survive v1</title>
+    <link rel="icon" type="image/png" href="panda.png">
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      cursor: crosshair;
+    }
+
+    .attacker {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      pointer-events: none;
+    }
+
+    .bullet {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: cyan;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .dead {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 60px;
+      color: red;
+      background: black;
+      padding: 40px;
+      border: 5px solid red;
+      z-index: 999;
+      font-family: 'Courier New', monospace;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Attackers -->
+  <img src="demon.png" class="attacker" id="a1">
+  <img src="demon.png" class="attacker" id="a2">
+  <img src="demon.png" class="attacker" id="a3">
+  <img src="demon.png" class="attacker" id="a4">
+
+
+  <div id="deadMsg" class="dead">💀 YOU ARE DEAD 💀</div>
+
+  <script>
+    const attackers = [
+      { el: document.getElementById('a1'), x: 100, y: 100 },
+      { el: document.getElementById('a2'), x: window.innerWidth - 100, y: 150 },
+      { el: document.getElementById('a3'), x: 100, y: window.innerHeight - 150 },
+      { el: document.getElementById('a4'), x: window.innerWidth - 150, y: window.innerHeight - 100 }
+    ];
+
+    const bullets = [];
+    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let dead = false;
+
+    document.addEventListener('mousemove', e => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    function shootBullets() {
+      attackers.forEach(att => {
+        const angle = Math.atan2(mouse.y - att.y, mouse.x - att.x);
+        const speed = 4;
+        const bullet = document.createElement('div');
+        bullet.classList.add('bullet');
+        bullet.style.left = att.x + 25 + 'px';
+        bullet.style.top = att.y + 25 + 'px';
+        document.body.appendChild(bullet);
+
+        bullets.push({
+          el: bullet,
+          x: att.x + 25,
+          y: att.y + 25,
+          dx: Math.cos(angle) * speed,
+          dy: Math.sin(angle) * speed
+        });
+      });
+
+      if (!dead) {
+        setTimeout(shootBullets, 600); // Shoot every 0.6s
+      }
+    }
+
+    function moveBullets() {
+      bullets.forEach((b, index) => {
+        b.x += b.dx;
+        b.y += b.dy;
+        b.el.style.left = b.x + 'px';
+        b.el.style.top = b.y + 'px';
+
+        const dist = Math.hypot(mouse.x - b.x, mouse.y - b.y);
+        if (dist < 15 && !dead) {
+          // MOUSE HIT!
+          dead = true;
+          document.getElementById('deadMsg').style.display = 'block';
+        }
+
+        // remove off-screen bullets
+        if (b.x < 0 || b.x > window.innerWidth || b.y < 0 || b.y > window.innerHeight) {
+          b.el.remove();
+          bullets.splice(index, 1);
+        }
+      });
+
+      requestAnimationFrame(moveBullets);
+    }
+
+    function placeAttackers() {
+      attackers.forEach(a => {
+        a.el.style.left = a.x + 'px';
+        a.el.style.top = a.y + 'px';
+      });
+    }
+
+    placeAttackers();
+    shootBullets();
+    moveBullets();
+  </script>
+</body>
+</html>

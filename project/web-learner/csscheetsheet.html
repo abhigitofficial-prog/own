@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Cheat Sheet</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f5f5f5;
+        color: #333;
+    }
+    header {
+        background: #0078d7;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+    .container {
+        max-width: 900px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    details {
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        background: #fafafa;
+    }
+    details summary {
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 18px;
+    }
+    pre {
+        background: #f0f0f0;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+    }
+</style>
+</head>
+<body>
+
+<header>CSS Cheat Sheet</header>
+
+<div class="container">
+    <input type="text" id="search" placeholder="Search properties...">
+
+    <details>
+        <summary>1. Selectors</summary>
+        <pre>
+* – Selects all elements.
+element – Targets all elements of that tag (p → all paragraphs).
+.class – Selects elements with that class name.
+#id – Selects an element with that unique ID.
+element, element – Applies styles to multiple selectors at once.
+element element – Targets elements inside another element.
+element > element – Targets direct children only.
+element + element – Selects the next sibling element.
+element ~ element – Selects all following siblings.
+[attribute=value] – Selects elements with a specific attribute/value pair.
+:hover, :focus, :active – Pseudo-classes that apply styles based on user interaction.
+::before, ::after – Pseudo-elements that add virtual content before or after an element.
+        </pre>
+    </details>
+
+    <details>
+        <summary>2. Colors</summary>
+        <pre>
+color – Changes the text color.
+background-color – Changes the background color.
+rgba() – Adds color with transparency (A = alpha).
+linear-gradient() – Creates a smooth gradient transition between colors.
+        </pre>
+    </details>
+
+    <details>
+        <summary>3. Text & Font</summary>
+        <pre>
+font-family – Sets the font style.
+font-size – Controls the text size.
+font-weight – Makes text boldness vary (normal, bold, 100–900).
+font-style – Italicizes or obliques text.
+text-align – Aligns text (left, center, right).
+text-transform – Changes case (uppercase, lowercase, capitalize).
+text-decoration – Adds/removes underline/line-through.
+line-height – Controls spacing between lines.
+letter-spacing – Adjusts space between characters.
+        </pre>
+    </details>
+
+    <details>
+        <summary>4. Box Model</summary>
+        <pre>
+width & height – Size of the box.
+margin – Space outside the element.
+padding – Space inside the element.
+border – Adds an outline (style, width, color).
+border-radius – Rounds the corners.
+box-sizing: border-box; – Makes width include padding and border.
+box-shadow – Adds shadows behind elements.
+        </pre>
+    </details>
+
+    <details>
+        <summary>5. Display & Positioning</summary>
+        <pre>
+display – Defines how an element is displayed (block, flex, grid, etc.).
+position – Controls element’s placement (static, relative, absolute, fixed, sticky).
+top, left – Used with positioning to move elements.
+z-index – Controls stack order (which element is on top).
+overflow – Controls content that overflows its box (hidden, scroll, auto).
+        </pre>
+    </details>
+
+    <details>
+        <summary>6. Flexbox</summary>
+        <pre>
+display: flex; – Enables flex layout.
+flex-direction – Row or column arrangement.
+justify-content – Aligns items horizontally.
+align-items – Aligns items vertically.
+align-content – Controls space between rows of flex items.
+flex-wrap – Allows items to wrap onto multiple lines.
+flex – Controls how much space each item takes.
+        </pre>
+    </details>
+
+    <details>
+        <summary>7. Grid</summary>
+        <pre>
+display: grid; – Enables grid layout.
+grid-template-columns – Defines number and size of columns.
+grid-template-rows – Defines rows.
+gap – Space between rows/columns.
+grid-column – Defines how many columns an element spans.
+grid-row – Defines how many rows an element spans.
+        </pre>
+    </details>
+
+    <details>
+        <summary>8. Backgrounds</summary>
+        <pre>
+background-image – Adds a background picture.
+background-repeat – Controls repetition (repeat, no-repeat).
+background-size – Scales image (cover = full cover, contain = fit inside).
+background-position – Controls image placement.
+background-attachment – Makes background scroll with page or stay fixed.
+        </pre>
+    </details>
+
+    <details>
+        <summary>9. Transitions & Animations</summary>
+        <pre>
+transition – Smoothly changes properties over time.
+transform – Moves, rotates, scales elements.
+@keyframes – Defines animation steps.
+animation – Runs the keyframe animation.
+        </pre>
+    </details>
+
+    <details>
+        <summary>10. Miscellaneous</summary>
+        <pre>
+opacity – Controls transparency (0 = invisible, 1 = visible).
+cursor – Changes the mouse pointer (pointer, crosshair).
+clip-path – Crops an element to a shape.
+filter – Applies visual effects (blur, brightness, grayscale).
+        </pre>
+    </details>
+
+
+
+    <details>
+    <summary>1. Advanced Selectors</summary>
+    <pre>
+:nth-child(n) – Selects the nth child of a parent.
+:nth-of-type(n) – Selects the nth occurrence of a specific element type.
+:not(selector) – Excludes certain elements.
+:first-child, :last-child – Selects the first or last child.
+:checked – Matches checked checkboxes/radio buttons.
+:disabled, :enabled – Styles form controls.
+:empty – Selects elements with no content.
+:root – Selects the root element (html).
+    </pre>
+</details>
+
+<details>
+    <summary>2. Units</summary>
+    <pre>
+Absolute units: px, pt, cm, mm, in.
+Relative units: em (relative to parent font size), rem (relative to root font size), % (relative to parent),
+vw (viewport width), vh (viewport height), vmin, vmax.
+    </pre>
+</details>
+
+<details>
+    <summary>3. Borders & Outlines</summary>
+    <pre>
+border-style: solid | dashed | dotted | double;
+border-image: url(border.png) 30 round;
+outline: 2px dashed red;
+outline-offset: 5px;
+    </pre>
+</details>
+
+<details>
+    <summary>4. Advanced Backgrounds</summary>
+    <pre>
+background-clip: content-box | padding-box | border-box;
+background-blend-mode: multiply | screen | overlay;
+mix-blend-mode: difference | multiply;
+    </pre>
+</details>
+
+<details>
+    <summary>5. Lists & Tables</summary>
+    <pre>
+list-style-type: none | decimal | circle | square;
+list-style-position: inside | outside;
+border-collapse: collapse | separate;
+border-spacing: 5px;
+caption-side: top | bottom;
+    </pre>
+</details>
+
+<details>
+    <summary>6. Responsive Design</summary>
+    <pre>
+@media (max-width: 768px) { ... } – Media queries.
+@media (prefers-color-scheme: dark) { ... } – Dark mode.
+object-fit: cover | contain; – For images/videos.
+aspect-ratio: 16/9; – Maintain proportion.
+    </pre>
+</details>
+
+<details>
+    <summary>7. CSS Variables</summary>
+    <pre>
+Define: :root { --main-color: #ff0000; }
+Use: color: var(--main-color);
+Fallback: color: var(--secondary-color, #000);
+    </pre>
+</details>
+
+<details>
+    <summary>8. Advanced Flexbox</summary>
+    <pre>
+order: 2; – Reorders items.
+align-self: flex-end; – Aligns individual item differently.
+flex-grow: 1; – Allows an item to grow.
+flex-shrink: 0; – Prevents shrinking.
+flex-basis: 200px; – Base width/height.
+    </pre>
+</details>
+
+<details>
+    <summary>9. CSS Grid Advanced</summary>
+    <pre>
+grid-auto-rows: minmax(100px, auto);
+grid-auto-columns: minmax(150px, 1fr);
+place-items: center; – Shortcut for align-items + justify-items.
+place-content: space-around; – Controls overall alignment.
+repeat(auto-fit, minmax(200px, 1fr)); – Responsive grid columns.
+    </pre>
+</details>
+
+<details>
+    <summary>10. Transforms & Filters</summary>
+    <pre>
+transform-origin: center;
+perspective: 1000px; – For 3D transforms.
+filter: grayscale(100%) | sepia(50%) | contrast(150%);
+    </pre>
+</details>
+
+<details>
+    <summary>11. Transitions (Advanced)</summary>
+    <pre>
+transition-property: transform, opacity;
+transition-duration: 0.3s;
+transition-delay: 0.2s;
+transition-timing-function: ease-in-out;
+    </pre>
+</details>
+
+<details>
+    <summary>12. Animations (Advanced)</summary>
+    <pre>
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+.element {
+  animation: bounce 1s infinite;
+}
+
+animation-delay: 1s;
+animation-fill-mode: forwards | backwards | both;
+animation-iteration-count: infinite;
+    </pre>
+</details>
+
+<details>
+    <summary>13. Modern CSS Features</summary>
+    <pre>
+scroll-behavior: smooth; – Smooth scrolling.
+overflow-wrap: break-word; – Break long words.
+word-break: break-all; – Force breaks anywhere.
+hyphens: auto; – Hyphenate long words.
+backdrop-filter: blur(10px); – Glassmorphism effect.
+    </pre>
+</details>
+
+<details>
+    <summary>14. Shapes & Clipping</summary>
+    <pre>
+clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+shape-outside: circle(50%);
+    </pre>
+</details>
+
+<details>
+    <summary>15. Scroll & Interaction</summary>
+    <pre>
+overflow-x: auto; overflow-y: hidden;
+scroll-snap-type: x mandatory;
+scroll-margin: 20px;
+pointer-events: none; – Makes element ignore clicks.
+user-select: none; – Prevents text selection.
+    </pre>
+</details>
+
+
+
+<a href="CSE102-CheatSheetCSSLong.pdf">click for get css cheetsheet pdf</a>
+
+
+</div>
+
+<script>
+const searchInput = document.getElementById('search');
+searchInput.addEventListener('input', function () {
+    const filter = this.value.toLowerCase();
+    document.querySelectorAll('details').forEach(detail => {
+        const text = detail.innerText.toLowerCase();
+        detail.style.display = text.includes(filter) ? 'block' : 'none';
+    });
+});
+</script>
+
+</body>
+</html>
